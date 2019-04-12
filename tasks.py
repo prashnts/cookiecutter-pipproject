@@ -14,19 +14,19 @@ REQUIREMENTS = os.path.join(COOKIE, 'requirements', 'dev.txt')
 
 @task
 def build():
-    run('cookiecutter {0} --no-input'.format(HERE))
+  run('cookiecutter {0} --no-input'.format(HERE))
 
 
 @task
 def clean():
-    if os.path.exists(COOKIE):
-        shutil.rmtree(COOKIE)
-        print('Removed {0}'.format(COOKIE))
-    else:
-        print('App directory does not exist. Skipping.')
+  if os.path.exists(COOKIE):
+    shutil.rmtree(COOKIE)
+    print('Removed {0}'.format(COOKIE))
+  else:
+    print('App directory does not exist. Skipping.')
 
 
 @task(pre=[clean, build])
 def test():
-    run('pip install -r {0}'.format(REQUIREMENTS), echo=True)
-    run('python {0} test'.format(os.path.join(COOKIE, 'manage.py')), echo=True)
+  run('pip install -r {0}'.format(REQUIREMENTS), echo=True)
+  run('python {0} test'.format(os.path.join(COOKIE, 'manage.py')), echo=True)
